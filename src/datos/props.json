@@ -1,0 +1,20 @@
+{
+	"props": [
+		{
+			"location": "Nuñez",
+			"price": 2138
+		},
+		{
+			"location": "Colegiales",
+			"price": 2017
+		},
+		{
+			"location": "Recoleta",
+			"price": 2106
+		},
+		{
+			"location": "Belgrano",
+			"price": 2224
+		}
+	]
+}

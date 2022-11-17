@@ -1,0 +1,28 @@
+.error-component {
+	position: fixed;
+	top: 30px;
+	background-color: #f2dede;
+	border: solid 1px #a94442;
+	z-index: 999;
+	width: 90%;
+	max-width: 450px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 3px;
+	p {
+		color: #a94442;
+	}
+	button {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		border: none;
+		background-color: transparent;
+		color: #a94442;
+		cursor: pointer;
+		svg {
+			pointer-events: none;
+		}
+	}
+}
