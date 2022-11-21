@@ -5,12 +5,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Container from "../components/Container";
 import Error from "../components/Error";
+import Modal from "../components/Modal";
+import { useModal } from "../hooks/useModal";
+import Loader from "../components/Loader";
 
 const index = () => {
 	const [locations, setLocations] = useState([]);
 	const [resultado, setResultado] = useState("");
 	const [tags, setTags] = useState([]);
 	const [error, setError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [isOpenModal, openModal, closeModal] = useModal(false);
 	const form = useRef(null);
 
 	const suggestions = locations;
@@ -90,6 +95,13 @@ const index = () => {
 				}
 
 				setResultado(getPrice(result));
+
+				setIsLoading(true);
+
+				setTimeout(() => {
+					setIsLoading(false);
+					openModal();
+				}, 3000);
 			}
 		});
 	};
@@ -101,11 +113,12 @@ const index = () => {
 	return (
 		<Container>
 			{error ? <Error closeError={closeError}>{error} </Error> : null}
+			{isLoading ? <Loader /> : null}
 			<div className="calculadora">
 				<form ref={form} onSubmit={calculo}>
 					<h1>Calculá el valor de tu propiedad</h1>
 					<label>
-						Selecciona la zona
+						Selecciona el barrio
 						{tags.length ? (
 							tags.map((tag) => {
 								return (
@@ -164,8 +177,14 @@ const index = () => {
 						Calcular
 					</button>
 				</form>
-				{resultado ? <h2>Precio aproximado : {resultado} </h2> : null}
 			</div>
+			<Modal isOpen={isOpenModal} closeModal={closeModal}>
+				{resultado ? (
+					<h2>
+						Valor aproximado : <mark>{resultado}</mark>{" "}
+					</h2>
+				) : null}
+			</Modal>
 		</Container>
 	);
 };
